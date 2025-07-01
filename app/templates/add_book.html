@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+</head>
+<body>
+    <h1>Add Book</h1>
+    <form method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required value="{{ book.name if book else '' }}"><br>
+        
+        <label for="barcode">Barcode:</label>
+        <input type="text" name="barcode" required value="{{ book.barcode if book else '' }}"><br>
+        
+        <label for="author">Author:</label>
+        <input type="text" name="author" required value="{{ book.author if book else '' }}"><br>
+        
+        <button type="submit">Submit</button>
+    </form>
+    <a href="{{ url_for('view_books') }}">View Books</a>
+</body>
+</html>
