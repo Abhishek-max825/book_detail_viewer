@@ -2,7 +2,7 @@ import pandas as pd
 from pymongo import MongoClient
 
 # Load Excel file
-excel_file = 'bookreport_copy_with_barcodes.xlsx'
+excel_file = 'library_project/bookreport_copy_with_barcodes.xlsx'
 df = pd.read_excel(excel_file)
 
 # Connect to MongoDB

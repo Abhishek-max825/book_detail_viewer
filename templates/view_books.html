@@ -140,7 +140,7 @@
 </head>
 <body>
     <div class="header">
-        <img src="../logo.png" alt="College Logo">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="College Logo">
         <div class="header-content">
             <div class="college-title">Dr.B.B. Hegde First Grade College, Kundapur</div>
             <hr class="header-underline">
@@ -252,6 +252,19 @@
                 {% endfor %}
             </tbody>
         </table>
+        <div style="margin-top: 20px; text-align: center;">
+            {% if total_pages > 1 %}
+                <div class="pagination">
+                    {% if page > 1 %}
+                        <a href="{{ url_for('view_books', page=page-1) }}" style="margin-right: 10px;">&laquo; Prev</a>
+                    {% endif %}
+                    Page {{ page }} of {{ total_pages }}
+                    {% if page < total_pages %}
+                        <a href="{{ url_for('view_books', page=page+1) }}" style="margin-left: 10px;">Next &raquo;</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
 </body>
 </html>

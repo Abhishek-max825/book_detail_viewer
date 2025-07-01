@@ -36,6 +36,8 @@ def add_book():
 @app.route('/books', methods=['GET'])
 def view_books():
     barcode = request.args.get('barcode')
+    page = int(request.args.get('page', 1))
+    per_page = 50
     barcode_result = None
     barcode_searched = None
     if barcode:
@@ -44,10 +46,13 @@ def view_books():
             barcode_result['id'] = str(barcode_result['_id'])
         else:
             barcode_searched = barcode
-    books = list(books_collection.find())
+    total_books = books_collection.count_documents({})
+    books_cursor = books_collection.find().skip((page-1)*per_page).limit(per_page)
+    books = list(books_cursor)
     for book in books:
         book['id'] = str(book['_id'])
-    return render_template('view_books.html', books=books, barcode_result=barcode_result, barcode_searched=barcode_searched)
+    total_pages = (total_books + per_page - 1) // per_page
+    return render_template('view_books.html', books=books, barcode_result=barcode_result, barcode_searched=barcode_searched, page=page, total_pages=total_pages)
 
 # Route to delete a book
 @app.route('/delete/<book_id>', methods=['POST'])
